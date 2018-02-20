@@ -1,0 +1,4 @@
+code                                        app/code/local/Digidennis/DimensionIt/
+adminhtml/Digidennis_DimensionIt.xml        app/design/adminhtml/default/default/layout/Digidennis_DimensionIt.xml
+adminhtml/template/*                        app/design/adminhtml/default/default/template/digidennis/dimensionit/
+Digidennis_DimensionIt.xml                  app/etc/modules/Digidennis_DimensionIt.xml

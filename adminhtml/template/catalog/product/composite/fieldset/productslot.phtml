@@ -1,0 +1,30 @@
+<?php $dimensions = $this->getProductslotDimensions(); ?>
+<?php $slot = $this->getProductslot(); ?>
+
+<div class="product_composite_configure_dimensionit_productslot">
+    <h4>Globale Dimensioner</h4>
+    <?php if ($slot): ?>
+    <div class="hidden"
+         data-component="Productslot"
+         data-priceform="<?php echo $dimension->getPrice(); ?>"
+         data-min="<?php echo $dimension->getMin(); ?>"
+    </div>
+    <dl>
+    <?php endif; ?>
+    <?php foreach ($dimensions as $dimension): ?>
+        <dt>
+            <label><?php echo $dimension->getLabel()?></label>
+        </dt>
+        <dd>
+            <div class="input-box">
+                <input class="product-custom-option dimensionit"
+                       name="dimensions[<?php echo $dimension->getId(); ?>][value]"
+                       value="<?php echo $dimension->getInitial(); ?>">
+                <input type="hidden" name="dimensions[<?php echo $dimension->getId(); ?>][label]" value="<?php echo $dimension->getLabel(); ?>">
+                <input type="hidden" name="dimensions[<?php echo $dimension->getId(); ?>][unit]" value="<?php echo $dimension->getUnit(); ?>">
+                <input type="hidden" name="dimensions[<?php echo $dimension->getId(); ?>][output]" value="<?php echo $dimension->getOutput(); ?>">
+            </div>
+        </dd>
+    <?php endforeach; ?>
+    </dl>
+</div>
