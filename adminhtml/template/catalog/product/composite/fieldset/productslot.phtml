@@ -19,7 +19,7 @@
             <div class="input-box">
                 <input class="product-custom-option dimensionit"
                        name="dimensions[<?php echo $dimension->getId(); ?>][value]"
-                       value="<?php echo $dimension->getInitial(); ?>">
+                       value="<?php echo $this->getDimensionValue($dimension); ?>">
                 <input type="hidden" name="dimensions[<?php echo $dimension->getId(); ?>][label]" value="<?php echo $dimension->getLabel(); ?>">
                 <input type="hidden" name="dimensions[<?php echo $dimension->getId(); ?>][unit]" value="<?php echo $dimension->getUnit(); ?>">
                 <input type="hidden" name="dimensions[<?php echo $dimension->getId(); ?>][output]" value="<?php echo $dimension->getOutput(); ?>">

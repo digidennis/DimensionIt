@@ -38,4 +38,21 @@ class Digidennis_DimensionIt_Block_Adminhtml_Catalog_Product_Composite_Fieldset_
         $dimensionhelper = Mage::helper('digidennis_dimensionit/dimension');
         return $dimensionhelper->getDimensionsForProductSlot($this->getProduct());
     }
+
+    public function getDimensionValue($dimension)
+    {
+        $quoteitems = Mage::getSingleton('adminhtml/session_quote')->getQuote()->getAllItems();
+        foreach ($quoteitems as $quoteitem ){
+            if($quoteitem->getItemId() == $this->getRequest()->getParam('id')){
+                $postedimensions = $quoteitem->getOptionByCode('posteddimensions');
+                if($postedimensions){
+                    $postedimensions = unserialize($postedimensions->getValue());
+                    if(key_exists($dimension->getDimensionId(), $postedimensions)){
+                        return $postedimensions[$dimension->getDimensionId()]['value'];
+                    }
+                }
+            }
+        }
+        return $dimension->getInitial();
+    }
 }

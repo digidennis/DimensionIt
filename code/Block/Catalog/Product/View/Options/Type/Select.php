@@ -69,7 +69,7 @@ class Digidennis_DimensionIt_Block_Catalog_Product_View_Options_Type_Select
                 {
                     $dimensionhtml .= "<li>";
                     $dimensionhtml .= "<label for='dimension_{$dimension->getId()}'>{$dimension->getLabel()}</label>";
-                    $dimensionhtml .= "<input class=\"product-custom-option dimensionit\" id=\"dimension_{$dimension->getId()}\" name=\"dimensions[{$dimension->getId()}][value]\" value=\"{$dimension->getInitial()}\">
+                    $dimensionhtml .= "<input class=\"product-custom-option dimensionit\" id=\"dimension_{$dimension->getId()}\" name=\"dimensions[{$dimension->getId()}][value]\" value=\"{$this->_getDimensionValue($dimension)}\">
 <input type=\"hidden\" name=\"dimensions[{$dimension->getId()}][label]\" value=\"{$dimension->getLabel()}\">
 <input type=\"hidden\" name=\"dimensions[{$dimension->getId()}][unit]\" value=\"{$dimension->getUnit()}\">
 <input type=\"hidden\" name=\"dimensions[{$dimension->getId()}][output]\" value=\"{$dimension->getOutput()}\">";
@@ -149,7 +149,7 @@ class Digidennis_DimensionIt_Block_Catalog_Product_View_Options_Type_Select
                     {
                         $selectHtml .= "<li>";
                         $selectHtml .= "<label for='dimension_{$dimension->getId()}'>{$dimension->getLabel()}</label>";
-                        $selectHtml .= "<input class=\"product-custom-option dimensionit\" id=\"dimension_{$dimension->getId()}\" name=\"dimensions[{$dimension->getId()}][value]\" value=\"{$dimension->getInitial()}\">
+                        $selectHtml .= "<input class=\"product-custom-option dimensionit\" id=\"dimension_{$dimension->getId()}\" name=\"dimensions[{$dimension->getId()}][value]\" value=\"{$this->_getDimensionValue($dimension)}\">
 <input type=\"hidden\" name=\"dimensions[{$dimension->getId()}][label]\" value=\"{$dimension->getLabel()}\">
 <input type=\"hidden\" name=\"dimensions[{$dimension->getId()}][unit]\" value=\"{$dimension->getUnit()}\">
 <input type=\"hidden\" name=\"dimensions[{$dimension->getId()}][output]\" value=\"{$dimension->getOutput()}\">";
@@ -163,5 +163,11 @@ class Digidennis_DimensionIt_Block_Catalog_Product_View_Options_Type_Select
 
             return $selectHtml;
         }
+    }
+
+    private function _getDimensionValue($dimension)
+    {
+        return Mage::helper('digidennis_dimensionit/dimension')
+            ->getPostedOrInitialValue($dimension, $this->getRequest()->getParam('id'));
     }
 }

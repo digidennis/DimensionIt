@@ -76,4 +76,19 @@ class Digidennis_DimensionIt_Helper_Dimension extends Mage_Core_Helper_Abstract
 
         return false;
     }
+
+    public function getPostedOrInitialValue($dimension, $item_id)
+    {
+        $quote_item = Mage::getSingleton('adminhtml/session_quote')->getQuote()->getItemById($item_id);
+        if( $quote_item ) {
+            $postedimensions = $quote_item->getOptionByCode('posteddimensions');
+            if($postedimensions){
+                $postedimensions = unserialize($postedimensions->getValue());
+                if(key_exists($dimension->getDimensionId(), $postedimensions)){
+                    return $postedimensions[$dimension->getDimensionId()]['value'];
+                }
+            }
+        }
+        return $dimension->getInitial();
+    }
 }
