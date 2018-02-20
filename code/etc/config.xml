@@ -42,7 +42,7 @@
         <layout>
             <updates>
                 <digidennis_dimensionit>
-                    <file>digidennis/dimension_it.xml</file>
+                    <file>Digidennis_DimensionIt.xml</file>
                 </digidennis_dimensionit>
             </updates>
         </layout>
