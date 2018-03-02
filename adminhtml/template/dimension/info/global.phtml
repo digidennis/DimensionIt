@@ -1,1 +1,12 @@
-YAY!
+<?php if ($this->hasDimensionOutput()): ?>
+<tr class="border">
+    <td class="first"><?php echo $this->getDimensionOutputHtml(); ?></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="last"></td>
+</tr>
+<?php endif; ?>
