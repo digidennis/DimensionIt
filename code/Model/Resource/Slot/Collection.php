@@ -27,10 +27,23 @@ class Digidennis_DimensionIt_Model_Resource_Slot_Collection extends Mage_Core_Mo
         return $this;
     }
 
+    public function filterForOptionType($option_type_id)
+    {
+        $this->addFieldToFilter('option_type_id', $option_type_id);
+        return $this->getFirstItem();
+    }
+
     public function filterForProduct($product_id)
     {
         $this->addFieldToFilter('product_id', $product_id);
         $this->addFieldToFilter('option_type_id', array('null' => true));
+        return $this;
+    }
+
+
+    public function allInProduct($product_id)
+    {
+        $this->addFieldToFilter('product_id', $product_id);
         return $this;
     }
 

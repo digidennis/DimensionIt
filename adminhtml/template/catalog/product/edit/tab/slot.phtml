@@ -1,0 +1,138 @@
+<?php $_slotid = $this->getSlot()->getSlotId(); ?>
+<?php $_productid = $this->getSlotId(); ?>
+
+<input type="hidden" id="digidennis-dimensionit-slots-<?php echo $_slotid; ?>" value="<?php echo $_slotid; ?>" name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][id]" />
+<input type="hidden" value="<?php echo $this->getSlot()->getOptionTypeId(); ?>" name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][optionTypeId]" />
+
+<table id="digidennis-dimensionit-slot-<?php echo $_slotid; ?>-table" class="option-header" cellpadding="4" cellspacing="4">
+    <thead>
+    <tr class="headings">
+        <th><?php echo $this->__('Min');?></th>
+        <th><?php echo $this->__('Max');?></th>
+        <th><?php echo $this->__('Price');?></th>
+        <th><?php echo $this->__('Weight');?></th>
+        <th><?php echo $this->__('Volume');?></th>
+        <th><?php echo $this->__('Volume Unit');?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="opt-req">
+            <input type="text"
+                   class="input-text"
+                   id="digidennis-dimensionit-slot-min-<?php echo $_slotid; ?>"
+                   name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][min]"
+                   value="<?php echo $this->getSlot()->getMin(); ?>">
+        </td>
+        <td class="opt-req">
+            <input type="text"
+                   class="input-text"
+                   id="digidennis-dimensionit-slot-max-<?php echo $_slotid; ?>"
+                   name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][max]"
+                   value="<?php echo $this->getSlot()->getMax(); ?>">
+        </td>
+        <td>
+            <input type="text"
+                   class="required-entry input-text"
+                   id="digidennis-dimensionit-slot-price-<?php echo $_slotid; ?>"
+                   name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][price]"
+                   value="<?php echo $this->getSlot()->getPrice(); ?>">
+        </td>
+        <td>
+            <input type="text"
+                   class="input-text"
+                   id="digidennis-dimensionit-slot-weight-<?php echo $_slotid; ?>"
+                   name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][weight]"
+                   value="<?php echo $this->getSlot()->getWeight(); ?>">
+        </td>
+        <td>
+            <input type="text"
+                   class="input-text"
+                   id="digidennis-dimensionit-slot-volume-<?php echo $_slotid; ?>"
+                   name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][volume]"
+                   value="<?php echo $this->getSlot()->getVolume(); ?>">
+        </td>
+        <td class="opt-req">
+            <input type="text"
+                   class="input-text"
+                   id="digidennis-dimensionit-slot-volumeunit-<?php echo $_slotid; ?>"
+                   name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][volumeunit]"
+                   value="<?php echo $this->getSlot()->getVolumeunit(); ?>">
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div id="digidennis-dimensionit-slot-<?php echo $_slotid; ?>-dimensions" class="grid tier form-list">
+    <table class="border" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr class="headings">
+            <th class="type-price"><?php echo $this->__('Id');?></th>
+            <th class="type-title"><?php echo $this->__('Label');?><span class="required">*</span></th>
+            <th class="type-price"><?php echo $this->__('Unit');?></th>
+            <th class="type-price"><?php echo $this->__('Min');?></th>
+            <th class="type-price"><?php echo $this->__('Max');?></th>
+            <th class="type-price"><?php echo $this->__('Step');?></th>
+            <th class="type-price"><?php echo $this->__('Initial');?></th>
+            <th class="type-price"><?php echo $this->__('Output');?></th>
+            <th class="type-butt last"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->getSlotDimensions() as $dimension): ?>
+            <tr>
+                <td><?php echo $dimension->getDimensionId(); ?></td>
+                <td>
+                    <input type="text"
+                           class="required-entry input-text select-type-title"
+                           name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][dimensions][<?php echo $dimension->getDimensionId(); ?>][label]"
+                           value="<?php echo $dimension->getLabel(); ?>">
+                </td>
+                <td>
+                    <input type="text"
+                           class="required-entry input-text select-type-title"
+                           name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][dimensions][<?php echo $dimension->getDimensionId(); ?>][unit]"
+                           value="<?php echo $dimension->getUnit(); ?>">
+                </td>
+                <td>
+                    <input type="number"
+                           class="input-number type-price"
+                           name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][dimensions][<?php echo $dimension->getDimensionId(); ?>][min]"
+                           value="<?php echo $dimension->getMin(); ?>">
+                </td>
+                <td>
+                    <input type="number"
+                           class="input-number type-price"
+                           name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][dimensions][<?php echo $dimension->getDimensionId(); ?>][max]"
+                           value="<?php echo $dimension->getMax(); ?>">
+                </td>
+                <td>
+                    <input type="number"
+                           class="required-entry input-number type-price"
+                           name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][dimensions][<?php echo $dimension->getDimensionId(); ?>][step]"
+                           value="<?php echo $dimension->getStep(); ?>">
+                </td>
+                <td>
+                    <input type="number"
+                           class="required-entry input-number type-price"
+                           name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][dimensions][<?php echo $dimension->getDimensionId(); ?>][initial]"
+                           value="<?php echo $dimension->getInitial(); ?>" >
+                </td>
+                <td>
+                    <input type="checkbox"
+                           class="input-number type-price"
+                           name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][dimensions][<?php echo $dimension->getDimensionId(); ?>][output]"
+                           value="<?php echo $dimension->getOutput(); ?>"
+                           <?php if ($dimension->getOutput()): ?>checked="checked"<?php endif; ?> />
+                </td>
+                <td class="last"><?php echo $this->getDeleteButtonHtml(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="100" class="a-right"><?php echo $this->getAddButtonHtml(); ?></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

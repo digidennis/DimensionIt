@@ -27,7 +27,6 @@ class Digidennis_DimensionIt_Helper_Calc extends Mage_Core_Helper_Abstract
         }
         return $input;
     }
-
     public function processFormular($posteddimensions, $formular )
     {
         $matches = null;
@@ -45,7 +44,6 @@ class Digidennis_DimensionIt_Helper_Calc extends Mage_Core_Helper_Abstract
 
         return $solvedformular;
     }
-
     private function compute($input){
         $compute = create_function('', 'return '.$input.';');
         return 0 + $compute();

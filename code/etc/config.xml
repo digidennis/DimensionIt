@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 
 <config>
+
     <modules>
         <Digidennis_DimensionIt>
             <version>0.0.1</version>
         </Digidennis_DimensionIt>
     </modules>
+
     <frontend>
         <events>
             <catalog_product_type_prepare_full_options>
@@ -27,6 +29,7 @@
             </sales_convert_quote_item_to_order_item>
         </events>
     </frontend>
+
     <admin>
         <routers>
             <adminhtml>
@@ -38,6 +41,7 @@
             </adminhtml>
         </routers>
     </admin>
+
     <adminhtml>
         <layout>
             <updates>
@@ -46,6 +50,7 @@
                 </digidennis_dimensionit>
             </updates>
         </layout>
+
         <events>
             <catalog_product_type_prepare_full_options>
                 <observers>
@@ -55,19 +60,24 @@
                     </digidennis_dimensionit>
                 </observers>
             </catalog_product_type_prepare_full_options>
+            <catalog_product_save_after >
+                <observers>
+                    <digidennis_dimensionit>
+                        <class>digidennis_dimensionit/observer</class>
+                        <method>productSaveAfter</method>
+                    </digidennis_dimensionit>
+                </observers>
+            </catalog_product_save_after >
         </events>
     </adminhtml>
+
     <global>
         <blocks>
             <digidennis_dimensionit>
                 <class>Digidennis_DimensionIt_Block</class>
             </digidennis_dimensionit>
-            <adminhtml>
-                <rewrite>
-                    <catalog_product_edit_tab_options_type_select>Digidennis_DimensionIt_Block_Adminhtml_Catalog_Product_Edit_Tab_Options_Type_Select</catalog_product_edit_tab_options_type_select>
-                </rewrite>
-            </adminhtml>
         </blocks>
+
         <models>
             <digidennis_dimensionit>
                 <class>Digidennis_DimensionIt_Model</class>
@@ -92,11 +102,13 @@
                 </rewrite>
             </catalog>
         </models>
+
         <helpers>
             <digidennis_dimensionit>
                 <class>Digidennis_DimensionIt_Helper</class>
             </digidennis_dimensionit>
         </helpers>
+
         <resources>
             <digidennis_dimensionit_setup>
                 <setup>

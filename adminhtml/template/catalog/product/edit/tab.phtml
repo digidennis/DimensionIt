@@ -1,0 +1,265 @@
+<div class="box-full">
+    <div class="entry-edit custom-options digidennis-dimensionit">
+        <div class="entry-edit-head">
+            <h4><?php echo $this->__('DimensionIt'); ?></h4>
+        </div>
+        <div class="box">
+            <div class="option-box">
+                <?php $_globalslot = $this->getGlobalSlot(); ?>
+                <div class="box-left"><h5>Global</h5></div>
+                <div class="box-right a-right">
+                    <div class="dimensionit-add-slot" data-option-type-id="" <?php if($_globalslot ): ?>style="display: none;"<?php endif;?>><?php echo $this->getSlotButtonHtml(); ?></div>
+                    <div class="dimensionit-delete-slot" <?php if(!$_globalslot ): ?>style="display: none;"<?php endif;?>><?php echo $this->getSlotButtonHtml(false); ?></div>
+                </div>
+                <div class="digidennis-dimensionit-slot" style="clear:both;padding-top:20px;">
+                    <?php if($_globalslot): ?><?php echo $this->getSlotHtml($_globalslot); ?><?php endif; ?>
+                </div>
+            </div>
+            <?php foreach ($this->getProduct()->getOptions() as $key => $option ): ?>
+                <?php foreach ($option->getValues() as $key => $value): ?>
+                    <?php $_localslot = $this->getLocalSlot($value->getOptionTypeId()); ?>
+                    <div class="option-box">
+                        <div class="box-left"><h5><?php echo $option->getTitle(); ?> / <?php echo $value->getTitle(); ?></h5></div>
+                        <div class="box-right a-right">
+                            <div class="dimensionit-add-slot" data-option-type-id="<?php echo $value->getOptionTypeId(); ?>"  <?php if($_localslot ): ?>style="display: none;"<?php endif;?>><?php echo $this->getSlotButtonHtml(); ?></div>
+                            <div class="dimensionit-delete-slot" <?php if(!$_localslot ): ?>style="display: none;"<?php endif;?>><?php echo $this->getSlotButtonHtml(false); ?></div>
+                        </div>
+                        <div class="digidennis-dimensionit-slot" style="clear:both;padding-top:20px;">
+                            <?php if($_localslot): ?><?php echo $this->getSlotHtml($_localslot); ?><?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var slotTemplate = "<input type=\"hidden\" id=\"digidennis-dimensionit-slots-{{slotId}}\" value=\"{{slotId}}\" name=\"digidennis-dimensionit-slot-edit[{{slotId}}][id]\" />" +
+        "<input type=\"hidden\" value=\"{{optionTypeId}}\" name=\"digidennis-dimensionit-slot-edit[{{slotId}}][optionTypeId]\" />" +
+        "<table id=\"digidennis-dimensionit-slot-{{slotId}}-table\" class=\"option-header\" cellpadding=\"4\" cellspacing=\"4\">\n" +
+        "    <thead>\n" +
+        "    <tr class=\"headings\">\n" +
+        "        <th><?php echo $this->__('Min');?></th>\n" +
+        "        <th><?php echo $this->__('Max');?></th>\n" +
+        "        <th><?php echo $this->__('Price');?></th>\n" +
+        "        <th><?php echo $this->__('Weight');?></th>\n" +
+        "        <th><?php echo $this->__('Volume');?></th>\n" +
+        "        <th><?php echo $this->__('Volume Unit');?></th>\n" +
+        "    </tr>\n" +
+        "    </thead>\n" +
+        "    <tbody>\n" +
+        "    <tr>\n" +
+        "        <td class=\"opt-req\">\n" +
+        "            <input type=\"text\"\n" +
+        "                   class=\"input-text\"\n" +
+        "                   id=\"digidennis-dimensionit-slot-min-{{slotId}}\"\n" +
+        "                   name=\"digidennis-dimensionit-slot-edit[{{slotId}}][min]\"\n" +
+        "                   value=\"\">\n" +
+        "        </td>\n" +
+        "        <td class=\"opt-req\">\n" +
+        "            <input type=\"text\"\n" +
+        "                   class=\"input-text\"\n" +
+        "                   id=\"digidennis-dimensionit-slot-max-{{slotId}}\"\n" +
+        "                   name=\"digidennis-dimensionit-slot-edit[{{slotId}}][max]\"\n" +
+        "                   value=\"\">\n" +
+        "        </td>\n" +
+        "        <td>\n" +
+        "            <input type=\"text\"\n" +
+        "                   class=\"required-entry input-text\"\n" +
+        "                   id=\"digidennis-dimensionit-slot-price-{{slotId}}\"\n" +
+        "                   name=\"digidennis-dimensionit-slot-edit[{{slotId}}][price]\"\n" +
+        "                   value=\"\">\n" +
+        "        </td>\n" +
+        "        <td>\n" +
+        "            <input type=\"text\"\n" +
+        "                   class=\"input-text\"\n" +
+        "                   id=\"digidennis-dimensionit-slot-weight-{{slotId}}\"\n" +
+        "                   name=\"digidennis-dimensionit-slot-edit[{{slotId}}][weight]\"\n" +
+        "                   value=\"\">\n" +
+        "        </td>\n" +
+        "        <td>\n" +
+        "            <input type=\"text\"\n" +
+        "                   class=\"input-text\"\n" +
+        "                   id=\"digidennis-dimensionit-slot-volume-{{slotId}}\"\n" +
+        "                   name=\"digidennis-dimensionit-slot-edit[{{slotId}}][volume]\"\n" +
+        "                   value=\"\">\n" +
+        "        </td>\n" +
+        "        <td class=\"opt-req\">\n" +
+        "            <input type=\"text\"\n" +
+        "                   class=\"input-text\"\n" +
+        "                   id=\"digidennis-dimensionit-slot-volumeunit-{{slotId}}\"\n" +
+        "                   name=\"digidennis-dimensionit-slot-edit[{{slotId}}][volumeunit]\"\n" +
+        "                   value=\"\">\n" +
+        "        </td>\n" +
+        "    </tr>\n" +
+        "    </tbody>\n" +
+        "</table>" +
+        "<div id=\"digidennis-dimensionit-slot-{{slotId}}-dimensions\" class=\"grid tier form-list\">\n" +
+        "    <table class=\"border\" cellpadding=\"0\" cellspacing=\"0\">\n" +
+        "        <thead>\n" +
+        "        <tr class=\"headings\">\n" +
+        "            <th class=\"type-price\"><?php echo $this->__('Id');?></th>\n" +
+        "            <th class=\"type-title\"><?php echo $this->__('Label');?><span class=\"required\">*</span></th>\n" +
+        "            <th class=\"type-price\"><?php echo $this->__('Unit');?></th>\n" +
+        "            <th class=\"type-price\"><?php echo $this->__('Min');?></th>\n" +
+        "            <th class=\"type-price\"><?php echo $this->__('Max');?></th>\n" +
+        "            <th class=\"type-price\"><?php echo $this->__('Step');?></th>\n" +
+        "            <th class=\"type-price\"><?php echo $this->__('Initial');?></th>\n" +
+        "            <th class=\"type-price\"><?php echo $this->__('Output');?></th>\n" +
+        "            <th class=\"type-butt last\"></th>\n" +
+        "        </tr>\n" +
+        "        </thead>\n" +
+        "        <tbody>\n" +
+        "        </tbody>\n" +
+        "        <tfoot>\n" +
+        "        <tr>\n" +
+        "            <td colspan=\"100\" class=\"a-right\">\n" +
+        "               <button title=\"Add Dimension\" type=\"button\" class=\"dimension-add scalable add\">\n" +
+        "                   <span><span><span><?php echo $this->__('Add Dimension'); ?></span></span></span>\n" +
+        "               </button>\n" +
+        "           </td>\n" +
+        "        </tr>\n" +
+        "        </tfoot>\n" +
+        "    </table>\n" +
+        "</div>";
+
+    var dimensionTemplate = "<tr>\n" +
+        "                <td>x</td>\n" +
+        "                <td>\n" +
+        "                    <input type=\"text\"\n" +
+        "                           class=\"required-entry input-text select-type-title\"\n" +
+        "                           name=\"digidennis-dimensionit-slot-edit[{{slotId}}][dimensions][{{dimensionId}}][label]\"\n" +
+        "                           value=\"\">\n" +
+        "                </td>\n" +
+        "                <td>\n" +
+        "                    <input type=\"text\"\n" +
+        "                           class=\"required-entry input-text select-type-title\"\n" +
+        "                           name=\"digidennis-dimensionit-slot-edit[{{slotId}}][dimensions][{{dimensionId}}][unit]\"\n" +
+        "                           value=\"\">\n" +
+        "                </td>\n" +
+        "                <td>\n" +
+        "                    <input type=\"number\"\n" +
+        "                           class=\"input-number type-price\"\n" +
+        "                           name=\"digidennis-dimensionit-slot-edit[{{slotId}}][dimensions][{{dimensionId}}][min]\"\n" +
+        "                           value=\"\">\n" +
+        "                </td>\n" +
+        "                <td>\n" +
+        "                    <input type=\"number\"\n" +
+        "                           class=\"input-number type-price\"\n" +
+        "                           name=\"digidennis-dimensionit-slot-edit[{{slotId}}][dimensions][{{dimensionId}}][max]\"\n" +
+        "                           value=\"\">\n" +
+        "                </td>\n" +
+        "                <td>\n" +
+        "                    <input type=\"number\"\n" +
+        "                           class=\"required-entry input-number type-price\"\n" +
+        "                           name=\"digidennis-dimensionit-slot-edit[{{slotId}}][dimensions][{{dimensionId}}][step]\"\n" +
+        "                           value=\"1\">\n" +
+        "                </td>\n" +
+        "                <td>\n" +
+        "                    <input type=\"number\"\n" +
+        "                           class=\"required-entry input-number type-price\"\n" +
+        "                           name=\"digidennis-dimensionit-slot-edit[{{slotId}}][dimensions][{{dimensionId}}][initial]\"\n" +
+        "                           value=\"\" >\n" +
+        "                </td>\n" +
+        "                <td>\n" +
+        "                    <input type=\"checkbox\"\n" +
+        "                           class=\"input-number type-price\"\n" +
+        "                           name=\"digidennis-dimensionit-slot-edit[{{slotId}}][dimensions][{{dimensionId}}][output]\"\n" +
+        "                           value=\"\"\n" +
+        "                </td>\n" +
+        "                <td class=\"last\">\n" +
+        "               <button title=\"Delete Dimension\" type=\"button\" class=\"dimension-delete scalable delete\">\n" +
+        "                   <span><span><span></span></span></span>\n" +
+        "               </button>\n" +
+        "                </td>\n" +
+        "            </tr>";
+
+    var dimensionIt = {
+        div: $('.digidennis-dimensionit'),
+        templateSyntax: /(^|.|\r|\n)({{(\w+)}})/,
+        slotCounter: 0,
+        dimensionCounter: 0,
+        add: function (event) {
+            var parent_elem = $(Event.findElement(event, 'div')).up();
+            var add_elem = parent_elem.select( '.dimensionit-add-slot' )[0];
+            var delete_elem = parent_elem.select( '.dimensionit-delete-slot' )[0];
+            var slot_elem = parent_elem.adjacent('.digidennis-dimensionit-slot')[0];
+            add_elem.hide();
+            delete_elem.show();
+
+            this.slotCounter++;
+            this.template = new Template(slotTemplate, this.templateSyntax);
+            data = {};
+            data.slotId = "newslot-" + this.slotCounter;
+            data.optionTypeId = parent_elem.down().readAttribute('data-option-type-id');
+            slot_elem.insert(this.template.evaluate(data));
+            this.bindDimensionAddButton();
+        },
+        addDimension: function (event) {
+            var table_elem = $(Event.findElement(event, 'table'));
+            var body_elem = table_elem.select('tbody')[0];
+            var slotid = table_elem.up().adjacent('input').first().value;
+            this.dimensionCounter++;
+            this.template = new Template(dimensionTemplate, this.templateSyntax);
+            data = {};
+            data.slotId = slotid;
+            data.dimensionId = "newdimension-" + this.dimensionCounter;
+            body_elem.insert(this.template.evaluate(data));
+            this.bindDimensionDeleteButton();
+        },
+        deleteDimension: function (event) {
+            $(Event.findElement(event, 'tr')).remove();
+        },
+        remove: function (event){
+            var parent_elem = $(Event.findElement(event, 'div')).up();
+            var add_elem = parent_elem.select( '.dimensionit-add-slot' )[0];
+            var delete_elem = parent_elem.select( '.dimensionit-delete-slot' )[0];
+            var slot_elem = parent_elem.adjacent('.digidennis-dimensionit-slot')[0];
+            $(slot_elem).update('');
+            add_elem.show();
+            delete_elem.hide();
+        },
+        bindAddButton: function(){
+            var buttons = $$('.digidennis-dimensionit .add.slot');
+            for(var i=0;i<buttons.length;i++){
+                if(!$(buttons[i]).binded){
+                    $(buttons[i]).binded = true;
+                    Event.observe(buttons[i], 'click', this.add.bind(this));
+                }
+            }
+        },
+        bindDeleteButton: function(){
+            var buttons = $$('.digidennis-dimensionit .delete.slot');
+            for(var i=0;i<buttons.length;i++){
+                if(!$(buttons[i]).binded){
+                    $(buttons[i]).binded = true;
+                    Event.observe(buttons[i], 'click', this.remove.bind(this));
+                }
+            }
+        },
+        bindDimensionAddButton:function(){
+            var buttons = $$('.digidennis-dimensionit .dimension-add');
+            for(var i=0;i<buttons.length;i++){
+                if(!$(buttons[i]).binded){
+                    $(buttons[i]).binded = true;
+                    Event.observe(buttons[i], 'click', this.addDimension.bind(this));
+                }
+            }
+        },
+        bindDimensionDeleteButton:function(){
+            var buttons = $$('.digidennis-dimensionit .dimension-delete');
+            for(var i=0;i<buttons.length;i++){
+                if(!$(buttons[i]).binded){
+                    $(buttons[i]).binded = true;
+                    Event.observe(buttons[i], 'click', this.deleteDimension.bind(this));
+                }
+            }
+        }
+    };
+    dimensionIt.bindAddButton();
+    dimensionIt.bindDeleteButton();
+    dimensionIt.bindDimensionAddButton();
+    dimensionIt.bindDimensionDeleteButton();
+</script>

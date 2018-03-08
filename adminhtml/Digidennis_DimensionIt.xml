@@ -25,4 +25,13 @@
         </reference>
     </adminhtml_sales_order_create_index>
 
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>digidennis_dimensionit_catalog_product_edit_tab</name>
+                <block>digidennis_dimensionit/adminhtml_catalog_product_edit_tab</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
 </layout>
