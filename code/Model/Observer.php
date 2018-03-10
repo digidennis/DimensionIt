@@ -100,6 +100,7 @@ class Digidennis_DimensionIt_Model_Observer
                 $iterationslot->setWeight($editslot['weight'] == '' ? null : $editslot['weight']);
                 $iterationslot->setVolume($editslot['volume'] == '' ? null : $editslot['volume']);
                 $iterationslot->setVolumeunit($editslot['volumeunit'] == '' ? null : $editslot['volumeunit']);
+                $iterationslot->setCost($editslot['cost'] == '' ? null : $editslot['cost']);
                 $iterationslot->setOptionTypeId($editslot['optionTypeId'] == '' ? null : $editslot['optionTypeId']);
                 $iterationslot->setProductId($product->getEntityId());
                 $iterationslot->save();

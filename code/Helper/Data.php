@@ -49,6 +49,25 @@ class Digidennis_DimensionIt_Helper_Data extends Mage_Core_Helper_Abstract
         }
     }
     /**
+     * calculate global cost in order item
+     * @return array|bool
+     */
+    public function getGlobalCostOfOrderItem(Mage_Sales_Model_Order_Item $item)
+    {
+        if(key_exists('dimensions', $item->getProductOptions()['info_buyRequest'])){
+            $posteddimensions = $item->getProductOptions()['info_buyRequest']['dimensions'];
+            $globalslot = Mage::getResourceModel('digidennis_dimensionit/slot_collection')
+                ->filterForProduct($item->getProductId())
+                ->getFirstItem();
+            if(!$globalslot->getSlotId())
+                return false;
+            $calc = Mage::helper('digidennis_dimensionit/calc');
+            return $calc->calculate($calc->processFormular($posteddimensions,$globalslot->getCost()));
+        } else {
+            return false;
+        }
+    }
+    /**
      * calculate option type volume in order item
      * @return array|bool
      */
@@ -66,6 +85,24 @@ class Digidennis_DimensionIt_Helper_Data extends Mage_Core_Helper_Abstract
                 'volume' => $calc->calculate($calc->processFormular($posteddimensions,$typeslot->getVolume())),
                 'unit' => $typeslot->getVolumeunit()
                 ];
+        } else {
+            return false;
+        }
+    }
+    /**
+     * calculate option type cost in order item
+     * @return array|bool
+     */
+    public function getOptionTypeCostOfOrderItem(Mage_Sales_Model_Order_Item $item, $option_type_id)
+    {
+        if(key_exists('dimensions', $item->getProductOptions()['info_buyRequest'])){
+            $posteddimensions = $item->getProductOptions()['info_buyRequest']['dimensions'];
+            $typeslot = Mage::getResourceModel('digidennis_dimensionit/slot_collection')
+                ->filterForOptionType($option_type_id);
+            if(!$typeslot->getSlotId())
+                return false;
+            $calc = Mage::helper('digidennis_dimensionit/calc');
+            return $calc->calculate($calc->processFormular($posteddimensions,$typeslot->getCost()));
         } else {
             return false;
         }

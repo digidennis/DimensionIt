@@ -13,6 +13,7 @@
         <th><?php echo $this->__('Weight');?></th>
         <th><?php echo $this->__('Volume');?></th>
         <th><?php echo $this->__('Volume Unit');?></th>
+        <th><?php echo $this->__('Cost');?></th>
     </tr>
     </thead>
     <tbody>
@@ -58,6 +59,13 @@
                    id="digidennis-dimensionit-slot-volumeunit-<?php echo $_slotid; ?>"
                    name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][volumeunit]"
                    value="<?php echo $this->getSlot()->getVolumeunit(); ?>">
+        </td>
+        <td>
+            <input type="text"
+                   class="input-text"
+                   id="digidennis-dimensionit-slot-cost-<?php echo $_slotid; ?>"
+                   name="digidennis-dimensionit-slot-edit[<?php echo $_slotid; ?>][cost]"
+                   value="<?php echo $this->getSlot()->getCost(); ?>">
         </td>
     </tr>
     </tbody>
