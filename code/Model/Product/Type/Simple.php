@@ -54,4 +54,15 @@ class Digidennis_DimensionIt_Model_Product_Type_Simple extends Mage_Catalog_Mode
 
         return $solvedWeight;
     }
+
+    /**
+     * Check if product is configurable
+     *
+     * @param Mage_Catalog_Model_Product $product
+     * @return bool
+     */
+    public function canConfigure($product = null)
+    {
+        return true;
+    }
 }
